@@ -20,12 +20,16 @@ def main():
     question_answers = list(get_quetion_answers().items())
     while True:
         i = random.randint(0, len(question_answers))
-        question, answer = question_answers[i]
-        answer = convert_answer(answer)
-        send_message(f"{i}. {question}")
-        time.sleep(DELAY_AFTER_SEND_QUESTION * PERIOD)
-        send_message(answer)
-        time.sleep(DELAY_AFTER_SEND_ANSWER * PERIOD)
+        try:
+            question, answer = question_answers[i]
+            answer = convert_answer(answer)
+            send_message(f"{i}. {question}")
+            time.sleep(DELAY_AFTER_SEND_QUESTION * PERIOD)
+            send_message(answer)
+            time.sleep(DELAY_AFTER_SEND_ANSWER * PERIOD)
+        except Exception:
+            import traceback; traceback.print_exc()
+            time.sleep(DELAY_AFTER_SEND_QUESTION)
 
 
 if __name__ == "__main__":
